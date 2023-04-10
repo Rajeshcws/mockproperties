@@ -22,7 +22,7 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://ediscoveryms:30081/eureka/
+      defaultZone: http://ediscoveryms:8761/eureka/
 
 
 info:

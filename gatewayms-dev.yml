@@ -1,0 +1,72 @@
+server:
+  port: 9999
+
+spring:
+  application:
+    name: gatewayms
+    
+  #cloud:
+   # kubernetes:
+    #  discovery:
+     #   enabled: true # to disable the DiscoveryClient
+     #   all-namespaces: true
+     #   include-external-name-services: true   # To enable the external Services [in kubernetes its spec.type:extername ->externaName: <your service name>]
+      #  include-not-ready-addresses: true  # To discover service endpoint addresses that are not marked as "ready" by the kubernetes api server
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enable: true
+          lower-case-service-id: true
+      routes:
+        - id: noficationroute
+          uri: lb://notificationms
+          predicates:
+          - Path=/notification/**
+        - id: apimsroute
+          uri: lb://apims
+          predicates:
+            - Path=/sensfixws/**
+
+
+logging:
+  level:
+    ROOT: DEBUG
+    org:
+      springframework:
+        security: DEBUG
+
+        
+management:
+  health:
+    circuitbreakers.enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+    shutdown:
+      enabled: true
+  endpoint:
+    gateway:
+      enabled: true
+    actuator:
+      verbose:
+        enabled: true      
+      
+
+
+endpoints:
+  shutdown:
+    enabled: true
+    
+
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

@@ -31,7 +31,7 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://ediscoveryms:30081/eureka/
 
 
 info:
@@ -47,10 +47,6 @@ info:
 feign:
   circuitbreaker:
     enabled: true
-
-notification:
-  service:
-    url: http://localhost:8091
 
 
 resilience4j:
